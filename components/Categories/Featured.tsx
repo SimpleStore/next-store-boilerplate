@@ -21,7 +21,7 @@ export const FeaturedCategories = ({ featuredCategories }: IProps) => {
             const image = firstImage(item.files);
             return (
               <div className="p-4" key={item.categoryId}>
-                <h3>{item.name}</h3>
+                <h3><a href={`/c/${item.slug}`}>{item.name}</a></h3>
                 <img
                   src={`${image.edgeUrl}/fit-in/400x400/${image.accessUrl}`}
                 />

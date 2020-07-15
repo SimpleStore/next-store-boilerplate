@@ -1,3 +1,4 @@
+import { GetStaticProps } from "next";
 import { Slider, FeaturedCategories } from "../components";
 import { getCategoryTree } from "../lib/SimpleStore";
 import { ICategoryTreeItem } from "../lib/Interfaces";
@@ -24,12 +25,13 @@ export default (props: IProps) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const featuredCategories = await getCategoryTree("catalog:categories:1128:a");
 
-  return {
-    props: {
-      featuredCategories,
-    },
+export const getStaticProps: GetStaticProps = async (context) => {
+    const featuredCategories = await getCategoryTree("catalog:categories:1128:a");
+  
+    return {
+      props: { featuredCategories },
+      unstable_revalidate: 100,
+    };
   };
-}
+

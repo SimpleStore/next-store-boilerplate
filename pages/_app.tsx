@@ -1,11 +1,14 @@
+import { IntlProvider } from "react-intl";
 import "../styles/index.css";
 import Layout from "../layout/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <IntlProvider locale="en-AU">
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </IntlProvider>
   );
 }
 
