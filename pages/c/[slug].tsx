@@ -14,16 +14,19 @@ export default ({ products, category }: IProps) => {
 
   return (
     <div>
-      <h1>{category.name}</h1>
+      <h1 className="px-1 text-2xl text-gray-600">{category.name}</h1>
       <ul className="flex">
         {products.result &&
           products.result.map((item) => {
             const image = firstImage(item.files);
             return (
-              <li className="flex-col" key={item.productId}>
-                <a href={`/p/${item.slug}`}>{item.title}</a>
+              <li className="flex-col px-4 py-3" key={item.productId}>
+                <a className="mt-2 text-gray-600" href={`/p/${item.slug}`}>
+                  {item.title}
+                </a>
                 {image && (
                   <img
+                    className="mt-3 rounded-lg shadow-xl"
                     src={`${image.edgeUrl}/fit-in/400x400/${image.accessUrl}`}
                   />
                 )}

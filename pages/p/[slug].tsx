@@ -30,46 +30,48 @@ export default ({ product }: IProps) => {
 
   return (
     <>
-      <h1>{product.title}</h1>
+      <h1 className="px-1 text-2xl text-gray-600">{product.title}</h1>
+      <div className="px-4 py-2">
+        <div>
+          Images:
+          <ul className="flex">
+            {product.files &&
+              product.files.map((item) => {
+                return (
+                  <li className="flex-col px-4" key={item.fileId}>
+                    <img
+                      className="mt-3 rounded-lg shadow-xl"
+                      src={`${item.edgeUrl}/fit-in/400x400/${item.accessUrl}`}
+                    />
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
 
-      <div>
-        images:
-        <ul>
-          {product.files &&
-            product.files.map((item) => {
-              return (
-                <li key={item.fileId}>
-                  <img
-                    src={`${item.edgeUrl}/fit-in/400x400/${item.accessUrl}`}
-                  />
-                </li>
-              );
-            })}
-        </ul>
-      </div>
-
-      <div>
-        {product.price && (
-          <FormattedNumber
-            value={product.price.sellPrice}
-            style="currency"
-            currency={product.price.currencyCode}
+        <div className="font-bold">
+          {product.price && (
+            <FormattedNumber
+              value={product.price.sellPrice}
+              style="currency"
+              currency={product.price.currencyCode}
+            />
+          )}
+          <br />
+          <input
+            className="appearance-none block w-20 bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            placeholder="Quantity"
+            value={quantity}
+            onChange={handleQuantityChanged}
           />
-        )}
-        <br />
-        <input
-          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          placeholder="Quantity"
-          value={quantity}
-          onChange={handleQuantityChanged}
-        />
-        <br />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-          onClick={handleAddToCartClicked}
-        >
-          Add to Cart
-        </button>
+          <br />
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+            onClick={handleAddToCartClicked}
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </>
   );
