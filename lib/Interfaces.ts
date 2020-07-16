@@ -78,3 +78,24 @@ export interface IProductCollection {
   slug: string;
   title: string;
 }
+
+export interface ICart {
+  cartId: string;
+  items: ICartItem[];
+  currencyCode: string;
+  subTotalCurrency: number;
+  totalCurrency: number;
+}
+
+interface ICartItem {
+  productId: string;
+  slug: string;
+  title: string;
+  paymentMethod: string;
+  files: IFile[];
+  price: IPrice;
+  quantity: number;
+  totalCurrency: 124.8;
+  totalPoints: 1560;
+  attributes: any;
+}

@@ -1,12 +1,9 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useContext } from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { FormattedNumber } from "react-intl";
-import {
-  getProductBySlug,
-  searchProducts,
-  addToCart,
-} from "../../lib/SimpleStore";
+import { getProductBySlug, searchProducts } from "../../lib/SimpleStore";
 import { IProduct } from "../../lib/Interfaces";
+import { WebsiteContext } from "../../store/WebsiteContext";
 
 interface IProps {
   product: IProduct;
@@ -14,6 +11,7 @@ interface IProps {
 
 export default ({ product }: IProps) => {
   console.log(product);
+  const { addToCart } = useContext(WebsiteContext);
 
   const [quantity, setQuantity] = useState("1");
 
@@ -24,8 +22,9 @@ export default ({ product }: IProps) => {
   };
 
   const handleAddToCartClicked = async () => {
-    const cart = await addToCart(product.productId, Number(quantity));
-    console.log("cart: ", cart);
+    // const cart = await addToCart(product.productId, Number(quantity));
+    // console.log("cart: ", cart);
+    addToCart(product.productId, Number(quantity));
   };
 
   return (
@@ -92,7 +91,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // get all the active products in the catalog
   // pass the slugs into the path
   const search = await searchProducts({
-    pageSize: 1000,
+    pageSize: 10,
     pageIndex: 0,
     isActive: { value: true },
   });

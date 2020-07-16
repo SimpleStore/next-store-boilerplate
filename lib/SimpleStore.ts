@@ -4,6 +4,7 @@ import {
   ICategory,
   ISearchResult,
   IProduct,
+  ICart,
 } from "./Interfaces";
 
 const api = create({
@@ -62,12 +63,23 @@ export const getCategoryBySlug = async (slug: string | string[]) => {
   return null;
 };
 
-export const addToCart = async (productId: string, quantity: number) => {
-  const response = await api.post<any>(`/v1/cart/sarmaad-demo/items`, {
+export const addToCart = async (
+  cartId: string,
+  productId: string,
+  quantity: number
+) => {
+  const response = await api.post<ICart>(`/v1/cart/${cartId}/items`, {
     productId,
     quantity,
   });
 
+  if (response.ok && response.data) return response.data;
+
+  return null;
+};
+
+export const loadCart = async (cartId: string) => {
+  const response = await api.get<ICart>(`/v1/cart/${cartId}`);
   if (response.ok && response.data) return response.data;
 
   return null;

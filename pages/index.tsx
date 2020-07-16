@@ -26,7 +26,7 @@ export default (props: IProps) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const featuredCategories = await getCategoryTree("catalog:categories:65:a");
+  const featuredCategories = await getCategoryTree("catalog:categories:1128:a");
 
   return {
     props: { featuredCategories },
