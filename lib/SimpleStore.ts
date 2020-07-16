@@ -77,6 +77,15 @@ export const addToCart = async (
 
   return null;
 };
+export const removeFromCart = async (cartId: string, productId: string) => {
+  const response = await api.post<ICart>(`/v1/cart/${cartId}/items`, {
+    productId,
+  });
+
+  if (response.ok && response.data) return response.data;
+
+  return null;
+};
 
 export const loadCart = async (cartId: string) => {
   const response = await api.get<ICart>(`/v1/cart/${cartId}`);

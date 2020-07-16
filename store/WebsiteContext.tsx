@@ -10,6 +10,7 @@ import * as Actions from "./Cart/Actions";
 interface IWebsiteContext {
   cart: ICart;
   addToCart: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: string) => void;
 }
 
 export const WebsiteContext = createContext<IWebsiteContext>(null);
@@ -48,6 +49,8 @@ export const WebsiteProvider = ({ children }) => {
         cart,
         addToCart: async (productId: string, quantity: number) =>
           cartDispatch(await Actions.addToCart(cartId, productId, quantity)),
+        removeFromCart: async (productId: string) =>
+          cartDispatch(await Actions.removeFromCart(cartId, productId)),
       }}
     >
       {children}

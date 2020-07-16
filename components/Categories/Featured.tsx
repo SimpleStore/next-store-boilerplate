@@ -13,7 +13,7 @@ export const FeaturedCategories = ({ featuredCategories }: IProps) => {
 
   return (
     <>
-      <span>Featured Categories</span>
+      <span className="px-1 text-2xl text-gray-600">Featured Categories</span>
       <div className="flex flex-row">
         {category &&
           category.children &&
@@ -21,8 +21,11 @@ export const FeaturedCategories = ({ featuredCategories }: IProps) => {
             const image = firstImage(item.files);
             return (
               <div className="p-4" key={item.categoryId}>
-                <h3><a href={`/c/${item.slug}`}>{item.name}</a></h3>
+                <h3>
+                  <a href={`/c/${item.slug}`}>{item.name}</a>
+                </h3>
                 <img
+                  className="mt-3 rounded-lg shadow-xl"
                   src={`${image.edgeUrl}/fit-in/400x400/${image.accessUrl}`}
                 />
               </div>
