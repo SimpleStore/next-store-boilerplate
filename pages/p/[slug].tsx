@@ -49,7 +49,7 @@ export default ({ product }: IProps) => {
           </ul>
         </div>
 
-        <div>
+        <div className="font-bold">
           {product.price && (
             <FormattedNumber
               value={product.price.sellPrice}
