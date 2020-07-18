@@ -49,7 +49,9 @@ export default () => {
           >
             Blog
           </a>
-          <CartStatus />
+          <a href="/cart">
+            <CartStatus />
+          </a>
         </div>
       </div>
     </nav>

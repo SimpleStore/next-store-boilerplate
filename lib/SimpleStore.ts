@@ -5,6 +5,9 @@ import {
   ISearchResult,
   IProduct,
   ICart,
+  ILocation,
+  ICheckout,
+  ICheckoutSession,
 } from "./Interfaces";
 
 const api = create({
@@ -77,6 +80,7 @@ export const addToCart = async (
 
   return null;
 };
+
 export const removeFromCart = async (cartId: string, productId: string) => {
   const response = await api.post<ICart>(`/v1/cart/${cartId}/items`, {
     productId,
@@ -89,6 +93,39 @@ export const removeFromCart = async (cartId: string, productId: string) => {
 
 export const loadCart = async (cartId: string) => {
   const response = await api.get<ICart>(`/v1/cart/${cartId}`);
+  if (response.ok && response.data) return response.data;
+
+  return null;
+};
+
+const getLocation = async () => {
+  const response = await api.get<ILocation>("/v1/location");
+  if (response.ok && response.data) return response.data;
+
+  return null;
+};
+
+export const checkoutCart = async (cartId: string) => {
+  const location = await getLocation();
+
+  const response = await api.post<ICheckout>("/v1/cart/buynow", {
+    cartId,
+    country: location?.country,
+    state: location?.state,
+    successUrl: "http://localhost:3000/cart/thankyou",
+    cancelUrl: "http://localhost:3000/cart",
+  });
+
+  if (response.ok && response.data) return response.data;
+
+  return null;
+};
+
+export const getSessionDetail = async (sessionId: string | string[]) => {
+  const response = await api.get<ICheckoutSession>(
+    `/v1/stripe/checkout/${sessionId}/order/confirmation`
+  );
+
   if (response.ok && response.data) return response.data;
 
   return null;

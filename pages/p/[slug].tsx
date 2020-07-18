@@ -11,7 +11,7 @@ interface IProps {
 
 export default ({ product }: IProps) => {
   console.log(product);
-  const { addToCart, removeFromCart } = useContext(WebsiteContext);
+  const { addToCart } = useContext(WebsiteContext);
 
   const [quantity, setQuantity] = useState("1");
 
@@ -25,11 +25,6 @@ export default ({ product }: IProps) => {
     // const cart = await addToCart(product.productId, Number(quantity));
     // console.log("cart: ", cart);
     addToCart(product.productId, Number(quantity));
-  };
-  const handleRemoveFromCartClicked = async () => {
-    // const cart = await addToCart(product.productId, Number(quantity));
-    // console.log("cart: ", cart);
-    removeFromCart(product.productId);
   };
 
   return (
@@ -74,12 +69,6 @@ export default ({ product }: IProps) => {
             onClick={handleAddToCartClicked}
           >
             Add to Cart
-          </button>
-          <button
-            className="ml-2 bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-            onClick={handleRemoveFromCartClicked}
-          >
-            Remove from Cart
           </button>
         </div>
       </div>

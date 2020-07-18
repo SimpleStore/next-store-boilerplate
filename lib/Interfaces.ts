@@ -99,3 +99,36 @@ interface ICartItem {
   totalPoints: 1560;
   attributes: any;
 }
+
+export interface ILocation {
+  country: string;
+  countryCode: string;
+  state: string;
+  currencyCode: string;
+}
+
+export interface ICheckout {
+  cartId: string;
+  stripePublishableKey: string;
+  sessionId: string;
+}
+
+export interface ICheckoutSession {
+  paymentIntentStatus: string;
+  paymentIntentTotal: number;
+  isBasketAvailable: boolean;
+  orderId: string;
+  receiptName: string;
+  receiptEmail: string;
+  shippingAddress: {
+    address1: string;
+    address2: string;
+    suburb: string;
+    postcode: string;
+    state: string;
+    country: string;
+  };
+  orderCurrencyCode: string;
+  orderTotal: number;
+  orderTotalPaid: number;
+}

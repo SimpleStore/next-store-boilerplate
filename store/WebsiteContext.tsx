@@ -11,16 +11,18 @@ interface IWebsiteContext {
   cart: ICart;
   addToCart: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string) => void;
+  resetCartId: () => void;
 }
 
 export const WebsiteContext = createContext<IWebsiteContext>(null);
 WebsiteContext.displayName = "WebsiteContext";
 
 export const WebsiteProvider = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(["cartId"]);
+  const [cookies, setCookie] = useCookies(["cartId"]);
 
   console.log("cookie: ", cookies);
   let { cartId } = cookies;
+
   if (!cartId) {
     // we dont have a cart id
     // generate a new one and save it in the cookie
@@ -37,6 +39,14 @@ export const WebsiteProvider = ({ children }) => {
     cartDispatch(await Actions.loadCart(cartId));
   };
 
+  const resetCartId = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 14);
+    cartId = uuidv4();
+    setCookie("cartId", cartId, { path: "/", expires: date });
+    console.log("remove cart id called");
+  };
+
   useEffect(() => {
     if (cartId) {
       loadCart(cartId);
@@ -51,6 +61,7 @@ export const WebsiteProvider = ({ children }) => {
           cartDispatch(await Actions.addToCart(cartId, productId, quantity)),
         removeFromCart: async (productId: string) =>
           cartDispatch(await Actions.removeFromCart(cartId, productId)),
+        resetCartId,
       }}
     >
       {children}
