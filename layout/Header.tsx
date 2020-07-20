@@ -49,7 +49,10 @@ export default () => {
           >
             Blog
           </a>
-          <a href="/cart">
+          <a
+            href="/cart"
+            className="absolute right-0 mr-4 text-teal-200 font-bold hover:text-white"
+          >
             <CartStatus />
           </a>
         </div>

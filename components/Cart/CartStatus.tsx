@@ -4,5 +4,5 @@ import { WebsiteContext } from "../../store/WebsiteContext";
 export const CartStatus = () => {
   const { cart } = useContext(WebsiteContext);
 
-  return <span>total: {cart?.totalCurrency}</span>;
+  return <span>total: ${cart?.totalCurrency}</span>;
 };
