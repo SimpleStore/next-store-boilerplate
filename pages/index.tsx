@@ -1,10 +1,11 @@
 import { GetStaticProps } from "next";
 import { Slider, FeaturedCategories } from "../components";
-import { getCategoryTree } from "../lib/SimpleStore";
-import { ICategoryTreeItem } from "../lib/Interfaces";
+import { getCategoryTree, searchProducts } from "../lib/SimpleStore";
+import { ISearchResult, ICategoryTreeItem, IProduct } from "../lib/Interfaces";
 
 interface IProps {
   featuredCategories: ICategoryTreeItem[];
+  featuredProducts: ISearchResult<IProduct>;
 }
 
 export default (props: IProps) => {
@@ -12,24 +13,28 @@ export default (props: IProps) => {
 
   return (
     <>
-      <Slider>
-        <div className="block h-64 text-gray-700">
-          <h1>Slider 1</h1>
-        </div>
-        <div>
-          <h1>Slider 2</h1>
-        </div>
-      </Slider>
+      <Slider {...props}></Slider>
+
       <FeaturedCategories {...props} />
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const featuredCategories = await getCategoryTree("catalog:categories:1128:a");
+  const featuredCategories = await getCategoryTree("catalog:categories:127:a");
+
+  const featuredProdIds = ["catalog:products:375:a", "catalog:products:441:a"];
+  const featuredProducts = await searchProducts({
+    pageSize: 10,
+    pageIndex: 0,
+    productIds: {
+      value: featuredProdIds,
+    },
+    isActive: { value: true },
+  });
 
   return {
-    props: { featuredCategories },
+    props: { featuredProducts, featuredCategories },
     unstable_revalidate: 100,
   };
 };
