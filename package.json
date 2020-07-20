@@ -11,7 +11,7 @@
     "@stripe/stripe-js": "^1.8.0",
     "apisauce": "^1.1.1",
     "autoprefixer": "^9.8.5",
-    "next": "9.4.4",
+    "next": "^9.4.4",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",

@@ -9,6 +9,8 @@ export const cartReducer = (state: ICart, action) => {
       return { ...action.payload };
     case Actions.CART_ITEM_REMOVED:
       return { ...action.payload };
+    case Actions.CART_DELETED:
+      return {};
 
     default:
       throw new Error();

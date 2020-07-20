@@ -91,6 +91,14 @@ export const removeFromCart = async (cartId: string, productId: string) => {
   return null;
 };
 
+export const deleteCart = async (cartId: string) => {
+  const response = await api.delete(`/v1/cart/${cartId}`);
+
+  if (response.ok) return response;
+
+  return null;
+};
+
 export const loadCart = async (cartId: string) => {
   const response = await api.get<ICart>(`/v1/cart/${cartId}`);
   if (response.ok && response.data) return response.data;

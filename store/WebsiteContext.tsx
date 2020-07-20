@@ -11,6 +11,7 @@ interface IWebsiteContext {
   cart: ICart;
   addToCart: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string) => void;
+  deleteCart: () => void;
   resetCartId: () => void;
 }
 
@@ -61,6 +62,8 @@ export const WebsiteProvider = ({ children }) => {
           cartDispatch(await Actions.addToCart(cartId, productId, quantity)),
         removeFromCart: async (productId: string) =>
           cartDispatch(await Actions.removeFromCart(cartId, productId)),
+        deleteCart: async () =>
+          cartDispatch(await Actions.deleteCart(cartId)),
         resetCartId,
       }}
     >
